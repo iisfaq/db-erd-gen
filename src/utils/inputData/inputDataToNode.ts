@@ -54,7 +54,7 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
 
     return {
         nodes: initNodes,
-        edges: initialEdges
+        edges: initialEdges // No positions for edges, they are calculated in CustomEdge
     }
 
 }

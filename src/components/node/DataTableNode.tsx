@@ -1,5 +1,5 @@
 import { Handle, Position } from 'reactflow';
-import { Card, Text, Space, Badge, Grid, Box, Tooltip } from '@mantine/core';
+import { Card, Text, Space, Badge, Grid, Box, Tooltip, rgba } from '@mantine/core';
 import { Table } from '../../interface/inputData';
 import TableForm from '../leftBar/components/TableForm';
 import useTableStore from '../../store/zustandStore';
@@ -17,7 +17,10 @@ function DataTableNode({ data }: DataTableNodeProps) {
     <Card
       shadow="sm"
       radius="md"
-      style={{ height: `${47 + data.columns.length * 28}px`, padding: "10px", fontSize: "2px", width: "320px" }}
+      style={{
+        height: `${47 + data.columns.length * 28}px`, padding: "10px",
+        fontSize: "2px", width: "320px", background: "rgba(34, 139, 230, 0.5)"
+      }}
     >
       <div style={{ pointerEvents: 'none' }}>
 
@@ -82,14 +85,14 @@ function DataTableNode({ data }: DataTableNodeProps) {
           </div>
         </Card.Section>
 
-        <Space h="xs" />
+
 
         {/* Table body with pointer events disabled to prevent drag */}
         <div style={{ pointerEvents: 'none' }} onMouseDown={(e) => e.stopPropagation()} onTouchStart={(e) => e.stopPropagation()}>
 
           {data.columns.map((v, ind) => {
 
-            const nodeDistance = 54 + ind * 24;
+            const nodeDistance = 33 + ind * 24;
 
             const leftNodeName = `${data.name}_${v.name}_left`
             const rightNodeName = `${data.name}_${v.name}_right`
@@ -129,12 +132,12 @@ function DataTableNode({ data }: DataTableNodeProps) {
                 <Handle
                   type={!!v.foreignTo ? "target" : "source"}
                   position={Position.Left} id={leftNodeName}
-                  style={{ top: nodeDistance, width: "0px", minWidth: "0px" }}
+                  style={{ top: nodeDistance, width: "10px", minWidth: "0px" }}
                 />
                 <Handle
                   type={!!v.foreignTo ? "target" : "source"}
                   position={Position.Right} id={rightNodeName}
-                  style={{ top: nodeDistance, width: "0px", minWidth: "0px" }}
+                  style={{ top: nodeDistance, width: "10px", minWidth: "0px" }}
                 />
               </Box>
             )

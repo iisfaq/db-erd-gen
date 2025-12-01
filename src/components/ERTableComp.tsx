@@ -33,11 +33,16 @@ function ERTableComp({ tableArray, updateTablePositions }: ERTableProps) {
   const [nodes, setNodes] = useState<Node<any>[]>([]);
   const [edges, setEdges] = useState<Edge<any>[]>([]);
 
-  useEffect(() => {
-    const testData = inputDataToNodeAndEdges(tableArray);
 
-    setNodes(testData.nodes);
-    setEdges(testData.edges);
+  function intelligentPlacement(nodesAndEdges: { nodes: Node[]; edges: Edge[]; }) {
+    return nodesAndEdges; // Placeholder for actual intelligent placement logic  
+  }
+
+  useEffect(() => {
+    const nodesAndEdgesWithoutPlacement = inputDataToNodeAndEdges(tableArray);
+    const nodesAndEdgesWithPlacement = intelligentPlacement(nodesAndEdgesWithoutPlacement);
+    setNodes(nodesAndEdgesWithPlacement.nodes);
+    setEdges(nodesAndEdgesWithPlacement.edges);
 
   }, [tableArray, update]);
 
@@ -73,8 +78,8 @@ function ERTableComp({ tableArray, updateTablePositions }: ERTableProps) {
         edgeTypes={edgeTypes}
         edgesUpdatable={true}
         minZoom={0.01}
-        maxZoom={4}
-      >
+        maxZoom={10}
+      >``
         <Background />
         <Controls />
         {/* <MiniMap  pannable zoomable/> */}
