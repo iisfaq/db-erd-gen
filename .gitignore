@@ -25,3 +25,6 @@ dist-ssr
 
 coverage
 package-lock.json
+
+.history/
+yarn.lock
