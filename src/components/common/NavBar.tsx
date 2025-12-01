@@ -4,29 +4,31 @@ import DebugModal from '../debug/DebugModal';
 import SavedScheme from '../debug/SavedSchemeBtn';
 import FileMenu from './FileMenu';
 import GenerateMenu from './GenerateMenu';
+import GitHubBtn from './GitHubBtn';
 
 export default function NavBar() {
-   return (
+  return (
     <AppShell>
-        <AppShell.Header h={50} p="xs">
-            <Group justify="space-between">
+      <AppShell.Header h={50} p="xs">
+        <Group justify="space-between">
 
-                <Group>
-                    <DebugModal/>
-                   
-                    <Group visibleFrom='sm'>
-                        <FileMenu />
-                        <GenerateMenu />
-                    </Group>
-                </Group>
-                
-                <Group>
-                    <SavedScheme types='btn'/>
-                    <ThemeToggleBtn/>
-                </Group>
+          <Group>
+            <DebugModal />
 
+            <Group visibleFrom='sm'>
+              <FileMenu />
+              <GenerateMenu />
             </Group>
-        </AppShell.Header>
+          </Group>
+
+          <Group>
+            <SavedScheme types='btn' />
+            <ThemeToggleBtn />
+            <GitHubBtn />
+          </Group>
+
+        </Group>
+      </AppShell.Header>
     </AppShell>
-   )
+  )
 }
