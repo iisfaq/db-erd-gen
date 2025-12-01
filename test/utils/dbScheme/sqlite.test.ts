@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToSQLiteScheme } from '../../../src/utilis/dataBase/tableDataToSQLite'
+import { tableDataToSQLiteScheme } from '../../../src/utils/dataBase/tableDataToSQLite'
 
 describe('For SQLite Scheme', () => {
 

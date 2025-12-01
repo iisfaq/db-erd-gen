@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToZodTypeScheme } from '../../../src/utilis/dataBase/tableDataToZodType'
+import { tableDataToZodTypeScheme } from '../../../src/utils/dataBase/tableDataToZodType'
 
 describe('For Zod Scheme', () => {
 

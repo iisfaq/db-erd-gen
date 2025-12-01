@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToYupTypeScheme } from '../../../src/utilis/dataBase/tableDataToYupType'
+import { tableDataToYupTypeScheme } from '../../../src/utils/dataBase/tableDataToYupType'
 
 describe('For Yup Scheme', () => {
 

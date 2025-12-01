@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToPrismaScheme } from '../../../src/utilis/dataBase/tableDataToPrisma'
+import { tableDataToPrismaScheme } from '../../../src/utils/dataBase/tableDataToPrisma'
 
 // TODO MySQL and Default
 describe('For Postgres Scheme Postgresql', () => {

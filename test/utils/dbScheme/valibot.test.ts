@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToValibotTypeScheme } from '../../../src/utilis/dataBase/tableDataToValibotType'
+import { tableDataToValibotTypeScheme } from '../../../src/utils/dataBase/tableDataToValibotType'
 
 describe('For Valibot Scheme', () => {
 

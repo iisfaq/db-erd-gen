@@ -6,7 +6,7 @@ import {
     tableDataToCRUDKnex,
     tableDataToCRUDKysely,
     tableDataToCRUDPrisma
-} from '../../src/utilis/dataBase/tableDataToCRUD'
+} from '../../src/utils/dataBase/tableDataToCRUD'
 
 describe('For CRUD generate string', () => {
     // PSQL raw string CRUD

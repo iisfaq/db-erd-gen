@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToTsTypeScheme } from '../../../src/utilis/dataBase/tableDataToTsType'
+import { tableDataToTsTypeScheme } from '../../../src/utils/dataBase/tableDataToTsType'
 
 describe('For Typescript Scheme', () => {
 

@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest'
-import { tab } from "../../src/utilis/generateTab"
-import { uuidGen } from "../../src/utilis/uuidGen"
+import { tab } from "../../src/utils/generateTab"
+import { uuidGen } from "../../src/utils/uuidGen"
 
 describe('tab', () => {
     test('normal functions test', () => {

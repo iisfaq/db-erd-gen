@@ -6,7 +6,7 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
     const initNodes: Node[] = [];
     const initialEdges: Edge[] = [];
 
-    let initTableDistance: number = 200;
+    let initTableDistanceX: number = 200;
 
     for(let table of tablesArr){
 
@@ -15,6 +15,14 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
         // Create Edge checking
         for(let [ind, k] of Object.entries(table.columns)){
             if(!!k.foreignTo){
+                const refTable = tablesArr.find(t => t.name === k.foreignTo!.name);
+                const refColumnExists = refTable && refTable.columns.some(col => col.name === k.foreignTo!.column);
+                if (!refTable || !refColumnExists) {
+                    console.warn(
+                        `Foreign key reference not found: table "${k.foreignTo!.name}", column "${k.foreignTo!.column}" in table "${name}"`
+                    );
+                    continue;
+                }
 
                 const sourceHandle = `${k.foreignTo!.name}_${k.foreignTo!.column}_right`
                 const targetHandle = `${name}_${k.name}_left`
@@ -22,9 +30,8 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
                 initialEdges.push({
                     "id": `reactflow__${sourceHandle}_${targetHandle}_gen`,
                     "source": k.foreignTo!.name,
-                    "sourceHandle": sourceHandle,
                     "target": name,
-                    "targetHandle": targetHandle,
+                    "type": "custom",
                 })
             }
         }
@@ -32,17 +39,17 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
         const tableInfo = {
             name: name,
             columns: table.columns,
-            position: table.position || { x: initTableDistance, y: 500 }
+            position: table.position || { x: initTableDistanceX, y: 500 }
         } 
 
         initNodes.push({ 
             id: name, 
             type: 'textUpdater',
-            position: table.position || { x: initTableDistance, y: 500 },
+            position: table.position || { x: initTableDistanceX, y: 500 },
             data: tableInfo
         })
 
-        initTableDistance += 250;
+        initTableDistanceX += 250;
     } 
 
     return {

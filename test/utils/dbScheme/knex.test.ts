@@ -1,7 +1,7 @@
 import { dummyScheme } from '../dummyDataTest';
 
 import { expect, test, describe } from 'vitest'
-import { tableDataToKyselyScheme } from '../../../src/utilis/dataBase/tableDataToKysely'
+import { tableDataToKyselyScheme } from '../../../src/utils/dataBase/tableDataToKysely'
 
 describe('For Kysely Scheme', () => {
 

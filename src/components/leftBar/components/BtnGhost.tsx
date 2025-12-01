@@ -85,7 +85,7 @@ type TableFormProps = {
   [x: string]: any; // For ActionIcon
 };
 
-function TableForm({ mode = "create", allTableData, editData, ...rest }: TableFormProps) {
+function BtnGhost({ mode = "create", allTableData, editData, ...rest }: TableFormProps) {
 
   const [opened, setOpened] = useState<boolean>(false);
 
@@ -394,4 +394,4 @@ function TableForm({ mode = "create", allTableData, editData, ...rest }: TableFo
   );
 }
 
-export default TableForm;
+export default BtnGhost;

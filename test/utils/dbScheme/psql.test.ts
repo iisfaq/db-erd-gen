@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToPostgresScheme } from '../../../src/utilis/dataBase/tableDataToPostgres'
+import { tableDataToPostgresScheme } from '../../../src/utils/dataBase/tableDataToPostgres'
 
 describe('For Postgres Scheme', () => {
 

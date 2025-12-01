@@ -1,6 +1,6 @@
 import { dummyScheme } from '../dummyDataTest';
 import { expect, test, describe } from 'vitest'
-import { tableDataToMySQLScheme } from '../../../src/utilis/dataBase/tableDataToMySQL'
+import { tableDataToMySQLScheme } from '../../../src/utils/dataBase/tableDataToMySQL'
 
 describe('For MySQL Scheme', () => {
 
