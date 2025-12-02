@@ -48,7 +48,8 @@ export const importString = `[
 				"isPrimaryKey": false,
 				"foreignTo": {
 					"name": "users",
-					"column": "id"
+					"column": "id",
+          "type": "one-to-many"
 				},
 				"notNull": false
 			},
@@ -63,6 +64,42 @@ export const importString = `[
 		"position": {
 			"x": 569.9866443912128,
 			"y": 271.71160262473705
+		}
+	},
+
+  {
+		"name": "customers",
+		"columns": [
+			{
+				"name": "id",
+				"dataType": "serial",
+				"unique": false,
+				"isPrimaryKey": true,
+				"notNull": false
+			},
+			{
+				"name": "users_id",
+				"dataType": "integer",
+				"unique": false,
+				"isPrimaryKey": false,
+				"foreignTo": {
+					"name": "users",
+					"column": "id",
+          "type": "one-to-many"
+				},
+				"notNull": false
+			},
+			{
+				"name": "content",
+				"dataType": "text",
+				"unique": true,
+				"isPrimaryKey": false,
+				"notNull": false
+			}
+		],
+		"position": {
+			"x": 1000,
+			"y": 271
 		}
 	}
 ]`

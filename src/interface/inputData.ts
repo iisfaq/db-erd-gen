@@ -5,7 +5,8 @@ export type Relationship = keyof typeof RELATIONSHIP
 
 export const foreignToObjScheme = z.object({
     name: z.string(),
-    column: z.string()
+    column: z.string(),
+    type: z.enum(["one-to-many" , "one-to-one" , "many-to-one" , "many-to-many"])
 })
 
 const tableTypesScheme = z.object({

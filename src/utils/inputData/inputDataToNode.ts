@@ -31,6 +31,7 @@ export function inputDataToNodeAndEdges(tablesArr: Table[]){
                     "id": `reactflow__${sourceHandle}_${targetHandle}_gen`,
                     "source": k.foreignTo!.name,
                     "target": name,
+                    "key":  k.foreignTo.type ?? "",
                     "type": "custom",
                 })
             }

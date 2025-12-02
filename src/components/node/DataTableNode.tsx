@@ -18,8 +18,8 @@ function DataTableNode({ data }: DataTableNodeProps) {
       shadow="sm"
       radius="md"
       style={{
-        height: `${47 + data.columns.length * 28}px`, padding: "10px",
-        fontSize: "2px", width: "320px", background: "rgba(34, 139, 230, 0.5)"
+        height: `${20 + data.columns.length * 28}px`, padding: "10px",
+        fontSize: "2px", width: "320px", background: "white"
       }}
     >
       <div style={{ pointerEvents: 'none' }}>
@@ -45,7 +45,8 @@ function DataTableNode({ data }: DataTableNodeProps) {
           >
             <Text fz={15} ta="center" mt={0} style={{ width: '100%' }}>
               <Badge
-                size="lg"
+
+                size="md"
                 tt="none"
                 radius={"md"}
                 leftSection={

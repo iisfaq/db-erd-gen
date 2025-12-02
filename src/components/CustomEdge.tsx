@@ -1,11 +1,8 @@
-import { getStraightPath, useStore } from 'reactflow';
-import React from "react";
+import { useStore } from 'reactflow';
+import React, { SVGAttributes } from "react";
 import { EdgeProps } from "reactflow";
 
-// Helper to offset a point by dx, dy
-function offsetPoint(x: number, y: number, dx: number, dy: number) {
-  return { x: x + dx, y: y + dy };
-}
+// Implementation of getStraightPath
 
 const CustomEdge: React.FC<EdgeProps> = ({
   id,
@@ -15,6 +12,9 @@ const CustomEdge: React.FC<EdgeProps> = ({
   targetY,
   // markerEnd,
   selected,
+  labelStyle,
+  style,
+
   source,
   target
 }) => {
@@ -32,70 +32,120 @@ const CustomEdge: React.FC<EdgeProps> = ({
       },
     };
   }
-  const sourceNode = useStore(s => s.nodeInternals.get(source)) as any;
-  const targetNode = useStore(s => s.nodeInternals.get(target)) as any;
+  const edge = useStore(s => s.edges.find(e => e.id === id));
+  const sourceNode = useStore(s => s.nodeInternals.get(source)) as unknown as Node;
+  const targetNode = useStore(s => s.nodeInternals.get(target)) as unknown as Node;
   const sourceRectangle = createRectangle(sourceNode, sourceY);
   const targetRectangle = createRectangle(targetNode, targetY);
 
   var sourceOnLeft = sourceNode.position.x < targetNode.position.x;
   var targetOnLeft = sourceNode.position.x >= targetNode.position.x;
 
+  var filler = 10;
   var a_x1 = targetRectangle.GetX(sourceOnLeft);
-  var a_x2 = targetRectangle.GetX(sourceOnLeft) + (sourceOnLeft ? -25 : 25)
+  var a_x2 = targetRectangle.GetX(sourceOnLeft) + (sourceOnLeft ? -filler : filler)
 
   var b_x1 = sourceRectangle.GetX(targetOnLeft);
-  var b_x2 = sourceRectangle.GetX(targetOnLeft) + (targetOnLeft ? -25 : 25)
+  var b_x2 = sourceRectangle.GetX(targetOnLeft) + (targetOnLeft ? -filler : filler)
 
-  const [edgePath] = getStraightPath({
-    sourceX: a_x2,
-    sourceY: targetRectangle.top,
-    targetX: b_x2,
-    targetY: sourceRectangle.top,
-  });
+  function getStraightPath({
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+  }: {
+    sourceX: number;
+    sourceY: number;
+    targetX: number;
+    targetY: number;
+  }): [string, [number, number], [number, number]] {
+    // Returns an SVG path string for a straight line and the start/end points
+    const path = `M ${sourceX},${sourceY} L ${targetX},${targetY}`;
+    return [path, [sourceX, sourceY], [targetX, targetY]];
+  }
 
-  return (
-    <g>
-      {/* Line from table to start of path (horizontal only) */}
-      <line
-        x1={a_x1}
-        y1={targetRectangle.top}
-        x2={a_x2}
-        y2={targetRectangle.top}
-        stroke={"pink"}
-        strokeWidth={2}
-      />
-      {/* Main curved path */}
-      <path
-        id={id}
-        d={edgePath}
-        stroke={"red"}
-        strokeWidth={6}
-        fill="none"
-      />
-      {/* Line from end of path to table (horizontal only) */}
-      {/* <line
-        x1={targetNode.position.x - 25}
-        y1={targetY}
-        x2={targetNode.position.x}
-        y2={targetY}
-        stroke={"lime"}
-        strokeWidth={5}
-      /> */}
+  var edgePath;
 
-      <line
-        x1={b_x1}
-        y1={sourceRectangle.top}
-        x2={b_x2}
-        y2={sourceRectangle.top}
-        stroke={"red"}
-        strokeWidth={2}
-      />
+  var color = selected ? "lime" : "white";
 
-      <circle cx={sourceRectangle.left} cy={sourceRectangle.top} r={5} fill="purple" />
-      <circle cx={targetRectangle.left} cy={targetRectangle.top} r={5} fill="yellow" />
 
-    </g>
-  );
+  switch (edge?.key) {
+    case "one-to-one":
+      edgePath = `M ${b_x1},${sourceRectangle.top} L ${b_x2},${sourceRectangle.top} L ${a_x2},${targetRectangle.top} L ${a_x1},${targetRectangle.top}`;
+      return (<g>
+        {/* Line from table to start of path (horizontal only) */}
+        <path
+          id={id}
+          d={edgePath}
+          stroke={color}
+          strokeWidth={2}
+          fill="none"
+        />
+        <circle cx={a_x1} cy={targetRectangle.top} r={5} fill={color} />
+        <circle cx={b_x1} cy={sourceRectangle.top} r={5} fill={color} />
+
+      </g>);
+    case "one-to-many":
+      edgePath = `M ${b_x1},${sourceRectangle.top} L ${b_x2},${sourceRectangle.top} L ${a_x2},${targetRectangle.top} L ${a_x1},${targetRectangle.top}`;
+      return (<g>
+        {/* Line from table to start of path (horizontal only) */}
+        <path
+          id={id}
+          d={edgePath}
+          stroke={color}
+          strokeWidth={2}
+          fill="none"
+        />
+        <circle cx={a_x1} cy={targetRectangle.top} r={5} fill={color} />
+        <circle cx={b_x1} cy={sourceRectangle.top} r={5} fill={color} />
+
+      </g>);
+    case "many-to-one":
+      edgePath = `M ${b_x1},${sourceRectangle.top} L ${b_x2},${sourceRectangle.top} L ${a_x2},${targetRectangle.top} L ${a_x1},${targetRectangle.top}`;
+      return (<g>
+        {/* Line from table to start of path (horizontal only) */}
+        <path
+          id={id}
+          d={edgePath}
+          stroke={color}
+          strokeWidth={2}
+          fill="none"
+        />
+        <circle cx={a_x1} cy={targetRectangle.top} r={5} fill={color} />
+        <circle cx={b_x1} cy={sourceRectangle.top} r={5} fill={color} />
+
+      </g>);
+    case "many-to-many":
+      edgePath = `M ${b_x1},${sourceRectangle.top} L ${b_x2},${sourceRectangle.top} L ${a_x2},${targetRectangle.top} L ${a_x1},${targetRectangle.top}`;
+      return (<g>
+        {/* Line from table to start of path (horizontal only) */}
+        <path
+          id={id}
+          d={edgePath}
+          stroke={color}
+          strokeWidth={2}
+          fill="none"
+        />
+        <circle cx={a_x1} cy={targetRectangle.top} r={5} fill={color} />
+        <circle cx={b_x1} cy={sourceRectangle.top} r={5} fill={color} />
+
+      </g>);
+    default:
+      edgePath = `M ${b_x1},${sourceRectangle.top} L ${b_x2},${sourceRectangle.top} L ${a_x2},${targetRectangle.top} L ${a_x1},${targetRectangle.top}`;
+      return (<g>
+        {/* Line from table to start of path (horizontal only) */}
+        <path
+          id={id}
+          d={edgePath}
+          stroke={color}
+          strokeWidth={2}
+          fill="none"
+        />
+        <circle cx={a_x1} cy={targetRectangle.top} r={5} fill={color} />
+        <circle cx={b_x1} cy={sourceRectangle.top} r={5} fill={color} />
+
+      </g>);
+  }
 };
 
 export default CustomEdge;
