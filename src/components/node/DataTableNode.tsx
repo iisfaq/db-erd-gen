@@ -22,7 +22,7 @@ function DataTableNode({ data }: DataTableNodeProps) {
         fontSize: "2px", width: "320px", background: "white"
       }}
     >
-      <div style={{ pointerEvents: 'none' }}>
+      <div>
 
         <Card.Section>
           {/* Blue border drag handle */}
@@ -89,7 +89,7 @@ function DataTableNode({ data }: DataTableNodeProps) {
 
 
         {/* Table body with pointer events disabled to prevent drag */}
-        <div style={{ pointerEvents: 'none' }} onMouseDown={(e) => e.stopPropagation()} onTouchStart={(e) => e.stopPropagation()}>
+        <div style={{ pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()} onTouchStart={(e) => e.stopPropagation()}>
 
           {data.columns.map((v, ind) => {
 
@@ -147,7 +147,7 @@ function DataTableNode({ data }: DataTableNodeProps) {
 
         </div>
       </div>
-    </Card>
+    </Card >
   );
 }
 

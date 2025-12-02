@@ -66,7 +66,7 @@ const CustomEdge: React.FC<EdgeProps> = ({
 
   var edgePath;
 
-  var color = selected ? "lime" : "white";
+  var color = selected ? "lime" : "yellow";
 
 
   switch (edge?.key) {

@@ -21,12 +21,10 @@ function ImportJsonFormat({ showsFormat = "NavLink" }: ImportJsonFormatProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const importTableObj = useTableStore((state) => state.importTableObj);
 
-  const openImportJsonViewModal = () => modals.open({
-    title: "Import JSON Code",
-    size: "85%",
-    children: (
+  function ImportJsonModalContent() {
+    return (
       <>
-        <LoadingOverlay visible={isLoading} />
+        {/* <LoadingOverlay visible={isLoading} /> */}
 
         <Group justify="space-between">
           <ImportJsonFromatFile setLoading={setIsLoading} setCloseModal={() => modals.closeAll()} />
@@ -46,14 +44,26 @@ function ImportJsonFormat({ showsFormat = "NavLink" }: ImportJsonFormatProps) {
 
         <JsonInput
           value={jsonValue}
-          validationError="Invalid json"
           onChange={setJsonValue}
+          rows={10}
+          placeholder="Paste your JSON here..."
+          formatOnBlur
           autosize
-          minRows={18}
+          minRows={10}
+          maxRows={20}
         />
       </>
-    ),
-  });
+    );
+  }
+
+  const openImportJsonViewModal = () => {
+    setIsLoading(false); // Reset loading state when opening modal
+    modals.open({
+      title: "Import JSON DDL Code",
+      size: "85%",
+      children: <ImportJsonModalContent key="import-json-modal-content" />,
+    });
+  };
 
   function importToStore(inputValue: string) {
 

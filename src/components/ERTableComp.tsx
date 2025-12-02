@@ -118,7 +118,7 @@ function ERTableComp({ tableArray, updateTablePositions }: ERTableProps) {
             <Slider
               value={sliderValue}
               onChange={setSliderValue}
-              min={0}
+              min={375}
               max={1500}
               step={1}
               label={String(sliderValue)}
